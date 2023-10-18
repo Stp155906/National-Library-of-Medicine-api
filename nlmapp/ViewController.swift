@@ -14,11 +14,13 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("[DEBUG] viewDidLoad called")
         tableview.dataSource = self
         fetchArticles()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("[DEBUG] numberOfRowsInSection called. Article count: \(articles.count)")
         return articles.count
     }
     
@@ -28,11 +30,14 @@ class ViewController: UIViewController, UITableViewDataSource {
         _ = articles[indexPath.row]
         // TODO: Set up cell based on the article data
         // e.g. cell.label.text = article.title
+        print("[DEBUG] cellForRowAt called for row: \(indexPath.row)")
         
         return cell
     }
     
     func fetchArticles() {
+        print("[DEBUG] fetchArticles started")
+        
         let urlString = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=limonene"
         
         if let url = URL(string: urlString) {
@@ -40,6 +45,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             let task = session.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                     print("Error: \(error)")
+                    print("[DEBUG] Invalid URL")
                     return
                 }
                 
@@ -58,5 +64,6 @@ class ViewController: UIViewController, UITableViewDataSource {
         } else {
             print("Invalid URL")
         }
+        
     }
 }
