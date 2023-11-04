@@ -1,69 +1,97 @@
-//
-//  ViewController.swift
-//  nlmapp
-//
-//  Created by Shantalia Z on 10/17/23.
-//
+// ViewController.swift
+// nlmapp
+// Created by Shantalia Z on 10/17/23.
+
 import UIKit
 
+// This class represents the main ViewController for the application.
 class ViewController: UIViewController, UITableViewDataSource {
     
+    // This IBOutlet connects the tableView from the storyboard to the code.
     @IBOutlet weak var tableview: UITableView!
     
+    // This array will store the fetched articles from the API.
     var articles: [Article] = []
-
+    
+    // This function is called when the view controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
         print("[DEBUG] viewDidLoad called")
+        
+        // Setting the table view's data source to this view controller.
         tableview.dataSource = self
+        
+        // Fetching articles when the view is loaded.
         fetchArticles()
     }
     
+    // This function returns the number of rows in a given section of a table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("[DEBUG] numberOfRowsInSection called. Article count: \(articles.count)")
         return articles.count
     }
     
+    // This function returns a cell to insert in a particular location of the table view.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath)
+        // Dequeue a reusable cell from the table view.
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        _ = articles[indexPath.row]
-        // TODO: Set up cell based on the article data
-        // e.g. cell.label.text = article.title
+        // Get the article corresponding to this row.
+        let article = articles[indexPath.row]
+        
+        // TODO: Populate the cell with data from the article.
+        // Assuming the cell has a label named titleLabel
+        // cell.titleLabel.text = article.title
+        
+        // Populate the cell with data from the article.
+            //cell.titleLabel.text = article.title
+        // Make sure your cell has a 'titleLabel' outlet
+        cell.textLabel?.text = article.title
+
         print("[DEBUG] cellForRowAt called for row: \(indexPath.row)")
-        
         return cell
     }
     
+    // This function fetches articles from the provided URL.
     func fetchArticles() {
         print("[DEBUG] fetchArticles started")
         
+        // URL string for the API endpoint.
         let urlString = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=limonene"
         
+        // Check if the URL string is valid.
         if let url = URL(string: urlString) {
+            // Create a shared URL session.
             let session = URLSession.shared
+            
+            // Create a data task to fetch the data from the URL.
             let task = session.dataTask(with: url) { (data, response, error) in
+                
+                // Handle any errors.
                 if let error = error {
                     print("Error: \(error)")
                     print("[DEBUG] Invalid URL")
                     return
                 }
                 
+                // Handle the received data.
                 if let data = data {
-                    // Just printing the XML here, you need to actually parse this XML to populate your articles
-                    if let xmlString = String(data: data, encoding: .utf8) {
-                        print("XML Response: \(xmlString)")
-                    } else {
-                        print("Invalid XML data")
+                    // Parsing the XML data using the ArticleParser.
+                    let parser = ArticleParser()
+                    self.articles = parser.parse(data: data)
+                    
+                    // Reload the table view on the main thread since UI updates should be on the main thread.
+                    DispatchQueue.main.async {
+                        self.tableview.reloadData()
                     }
                 } else {
                     print("No data received")
                 }
             }
+            // Start the data task.
             task.resume()
         } else {
             print("Invalid URL")
         }
-        
     }
 }

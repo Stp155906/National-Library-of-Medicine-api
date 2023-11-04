@@ -22,6 +22,7 @@
 		E469C4AA2ADEE18D00BD2606 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E469C4A92ADEE18D00BD2606 /* CustomTableViewCell.swift */; };
 		E469C4AB2ADEE18D00BD2606 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E469C4A92ADEE18D00BD2606 /* CustomTableViewCell.swift */; };
 		E469C4AC2ADEE18D00BD2606 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E469C4A92ADEE18D00BD2606 /* CustomTableViewCell.swift */; };
+		E490F3772AE07C0F00CB21EB /* ArticleParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E490F3762AE07C0F00CB21EB /* ArticleParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		E44B9D7F2ADEC3D700E5B390 /* nlmappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nlmappUITests.swift; sourceTree = "<group>"; };
 		E44B9D812ADEC3D700E5B390 /* nlmappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nlmappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E469C4A92ADEE18D00BD2606 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		E490F3762AE07C0F00CB21EB /* ArticleParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				E469C4A92ADEE18D00BD2606 /* CustomTableViewCell.swift */,
 				E424DA7E2ADF240200A60D83 /* ESearchResult.swift */,
 				E424DA802ADF30D400A60D83 /* Article.swift */,
+				E490F3762AE07C0F00CB21EB /* ArticleParser.swift */,
 				E44B9D612ADEC3D300E5B390 /* Main.storyboard */,
 				E44B9D672ADEC3D700E5B390 /* Assets.xcassets */,
 				E44B9D692ADEC3D700E5B390 /* LaunchScreen.storyboard */,
@@ -279,6 +282,7 @@
 				E44B9D5C2ADEC3D300E5B390 /* AppDelegate.swift in Sources */,
 				E44B9D5E2ADEC3D300E5B390 /* SceneDelegate.swift in Sources */,
 				E44B9D662ADEC3D300E5B390 /* nlmapp.xcdatamodeld in Sources */,
+				E490F3772AE07C0F00CB21EB /* ArticleParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
