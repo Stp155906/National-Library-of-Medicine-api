@@ -1,7 +1,8 @@
 //
 //  ArticleParser.swift
 //  nlmapp
-//
+
+// The ArticleParser class which implements the XMLParserDelegate and is responsible for parsing the XML data to create Article objects.
 //  Created by Shantalia Z on 10/18/23.
 //
 
@@ -78,4 +79,3 @@ class ArticleParser: NSObject, XMLParserDelegate {
         print("XML Parse error: \(parseError.localizedDescription)")
     }
 }
-

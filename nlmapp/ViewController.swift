@@ -46,7 +46,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         // Populate the cell with data from the article.
             //cell.titleLabel.text = article.title
         // Make sure your cell has a 'titleLabel' outlet
+        print("Article title: \(article.title)")
         cell.textLabel?.text = article.title
+        
 
         print("[DEBUG] cellForRowAt called for row: \(indexPath.row)")
         return cell
@@ -76,9 +78,18 @@ class ViewController: UIViewController, UITableViewDataSource {
                 
                 // Handle the received data.
                 if let data = data {
+                    
+                    // Handles data recieved
+                    let dataString = String(data: data, encoding: .utf8)
+                        print("Received data: \(dataString ?? "Invalid data")")
+                    
                     // Parsing the XML data using the ArticleParser.
                     let parser = ArticleParser()
                     self.articles = parser.parse(data: data)
+                    
+                    
+                    
+                    
                     
                     // Reload the table view on the main thread since UI updates should be on the main thread.
                     DispatchQueue.main.async {
