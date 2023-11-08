@@ -38,6 +38,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         // Get the article corresponding to this row.
         let article = articles[indexPath.row]
+        //added this
+        cell.textLabel?.text = article.id
+        
+        print(article)
         
         // TODO: Populate the cell with data from the article.
         // Assuming the cell has a label named titleLabel
@@ -46,8 +50,8 @@ class ViewController: UIViewController, UITableViewDataSource {
         // Populate the cell with data from the article.
             //cell.titleLabel.text = article.title
         // Make sure your cell has a 'titleLabel' outlet
-        print("Article title: \(article.title)")
-        cell.textLabel?.text = article.title
+        //print("Article title: \(article.title)")
+        //cell.textLabel?.text = article.title
         
 
         print("[DEBUG] cellForRowAt called for row: \(indexPath.row)")
@@ -83,9 +87,9 @@ class ViewController: UIViewController, UITableViewDataSource {
                     let dataString = String(data: data, encoding: .utf8)
                         print("Received data: \(dataString ?? "Invalid data")")
                     
-                    // Parsing the XML data using the ArticleParser.
-                    let parser = ArticleParser()
-                    self.articles = parser.parse(data: data)
+//                    // Parsing the XML data using the ArticleParser.
+//                    let parser = ArticleParser()
+//                    self.articles = parser.parse(data: data)
                     
                     
                     
@@ -93,6 +97,10 @@ class ViewController: UIViewController, UITableViewDataSource {
                     
                     // Reload the table view on the main thread since UI updates should be on the main thread.
                     DispatchQueue.main.async {
+                        // Parsing the XML data using the ArticleParser.
+                        let parser = ArticleParser()
+                        self.articles = parser.parse(data: data)
+                        
                         self.tableview.reloadData()
                     }
                 } else {

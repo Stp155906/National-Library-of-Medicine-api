@@ -53,9 +53,13 @@ class ArticleParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "Id" { // End of Id element.
             // Trim whitespace and newline characters from the found characters.
+            
+            
             let trimmedString = foundCharacters.trimmingCharacters(in: .whitespacesAndNewlines)
             // If it's non-empty, create an article with the ID.
             if !trimmedString.isEmpty {
+                
+                print(trimmedString)
                 let article = Article(id: trimmedString, title: "", authors: [], abstract: "")
                 articles.append(article)
             }
