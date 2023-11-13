@@ -9,7 +9,6 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var imagecell: UIView!
     
     @IBOutlet weak var textlabel: UILabel!
     

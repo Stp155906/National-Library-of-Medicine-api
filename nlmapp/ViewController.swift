@@ -5,7 +5,10 @@
 import UIKit
 
 // This class represents the main ViewController for the application.
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+    //added ?
+    let eFetchManager = EFetchManager()  // Create an instance of EFetchManager
+
     
     // This IBOutlet connects the tableView from the storyboard to the code.
     @IBOutlet weak var tableview: UITableView!
@@ -21,9 +24,42 @@ class ViewController: UIViewController, UITableViewDataSource {
         // Setting the table view's data source to this view controller.
         tableview.dataSource = self
         
+        
+        
+        
+        //Added Here The tableview call
+        tableview.dataSource = self
+        tableview.delegate = self  // Set the delegate
+        
         // Fetching articles when the view is loaded.
         fetchArticles()
+        
+        
+        
+        
     }
+    
+    // Added Tableview call for detailviewcontroller
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect the row for a better UI experience
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        // Perform the segue
+        performSegue(withIdentifier: "segue", sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segue",
+           let destinationVC = segue.destination as? DetailViewController,
+           let indexPath = tableview.indexPathForSelectedRow {
+            // Pass the data to destinationVC
+            let selectedArticle = articles[indexPath.row]
+            destinationVC.articleTitle = selectedArticle.title
+            destinationVC.articleAbstract = selectedArticle.abstract
+            // ... set other properties as needed
+        }
+    }
+
     
     // This function returns the number of rows in a given section of a table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,6 +94,20 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+   
+
+    
+    
+
+    func fetchDetailedArticles(ids: [String]) {
+        eFetchManager.fetchArticles(ids: ids) { [weak self] articles in
+            DispatchQueue.main.async {
+                self?.articles = articles
+                self?.tableview.reloadData()
+            }
+
+        }
+    }
     // This function fetches articles from the provided URL.
     func fetchArticles() {
         print("[DEBUG] fetchArticles started")

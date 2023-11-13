@@ -14,7 +14,7 @@ class EFetchManager {
 
     // Function to fetch articles by ID and return a completion handler with an array of Articles.
     func fetchArticles(ids: [String], completion: @escaping ([Article]) -> Void) {
-        // Construct the URL for eFetch.
+        // Construct the URL for eFetch with parameters for detailed information.
         let idParameter = ids.joined(separator: ",")
         guard let url = URL(string: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=\(idParameter)&retmode=xml&rettype=abstract") else {
             print("Invalid URL")
@@ -35,9 +35,9 @@ class EFetchManager {
                 return
             }
             
-            // Parse the XML data.
+            // Parse the XML data using the ArticleParser.
             let parser = XMLParser(data: data)
-            let articleParser = ArticleParser()  // Assuming ArticleParser is your XML parsing class.
+            let articleParser = ArticleParser()  // Using the updated ArticleParser.
             parser.delegate = articleParser
             parser.parse()
             
